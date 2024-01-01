@@ -11,7 +11,7 @@ namespace ProgramaEstoque.Data
             List<ClienteModel> clientes = new List<ClienteModel>();
 
             using (var conn = GetConnection())
-            using (var cmd = new SQLiteCommand("SELECT cd_cliente, nome, valor_total, valor_pago FROM cliente ORDER BY nome", conn))
+            using (var cmd = new SQLiteCommand("SELECT cd_cliente, nome, round(valor_total, 2), valor_pago FROM cliente ORDER BY nome", conn))
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -31,18 +31,55 @@ namespace ProgramaEstoque.Data
             return clientes;
         }
 
+        public static ClienteModel GetClienteUnico(int cd_cliente)
+        {
+            ClienteModel cliente = null;
+
+            using(var conn = GetConnection())
+            using (var cmd = new SQLiteCommand($"SELECT cd_cliente, nome, round(valor_total, 2), valor_pago FROM cliente WHERE cd_cliente = {cd_cliente}", conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    cliente = new ClienteModel
+                    {
+                        Id = reader.GetInt32(0),
+                        Nome = reader.GetString(1),
+                        ValorTotal = reader.GetDouble(2),
+                        ValorPago = reader.GetDouble(3)
+                    };
+                }
+                CloseConnection();
+            }
+            return cliente;
+        }
+
         public static void AddCliente(string nome)
         {
             using (var conn = GetConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText =
-                    "INSERT INTO cliente (nome, valor) VALUES (@nome, 0)";
+                    "INSERT INTO cliente (nome, valor_total, valor_pago) VALUES (@nome, 0, 0)";
 
                 cmd.Parameters.AddWithValue("@nome", nome);
 
                 cmd.ExecuteNonQuery();
 
+                CloseConnection();
+            }
+        }
+
+        public static void RemoverCliente(int cd_cliente)
+        {
+            using(var conn = GetConnection())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText =
+                    "DELETE FROM cliente WHERE cd_cliente = @cd_cliente";
+
+                cmd.Parameters.AddWithValue("@cd_cliente", cd_cliente);
+                cmd.ExecuteNonQuery();
                 CloseConnection();
             }
         }

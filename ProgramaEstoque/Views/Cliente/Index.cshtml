@@ -5,23 +5,50 @@
 }
 
 
-<h1 class="display-4">Clientes</h1>
-    
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Valor para Pagar</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var cliente in Model)
-        {
-            <tr>
-                <td>@cliente.Nome</td>
-                <td>R$@cliente.ValorTotal</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container text-center">
+    <div class="row">
+        <div class="offset-3 col-6">
+            <form asp-controller="Cliente" asp-action="ConfirmarCadastro">
+                <label for="nome">Nome do Cliente</label><br />
+                <input type="text" class="form-control" name="nome" id="nome" autocomplete="off" required />
+                <br />
+                <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Valor para Pagar</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cliente in Model)
+                {
+                    <tr>
+                        <td>@cliente.Nome</td>
+                        <td>R$@cliente.ValorTotal</td>
+                        <td>
+                            <div role="group" class="btn-group">
+                                <form asp-controller="Cliente" asp-action="MostrarCliente">
+                                    <input type="hidden" name="cd_cliente" value="@cliente.Id" />
+                                    <button type="submit" class="btn btn-secondary">Mostrar</button>
+                                </form>
+                                <form asp-controller="Cliente" asp-action="ConfirmarRemover">
+                                    <input type="hidden" name="cd_cliente" value="@cliente.Id" />
+                                    <button type="submit" class="btn btn-danger">Remover</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

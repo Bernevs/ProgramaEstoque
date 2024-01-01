@@ -1,0 +1,22 @@
+﻿@model ProgramaEstoque.Models.ClienteModel
+
+@{
+    ViewData["Title"] = "Remover Cliente";
+}
+
+<div class="container text-center">
+    <form asp-controller="Cliente" asp-action="RemoverCliente">
+        <div class="row">
+            <div class="col-12">
+                <p>Você deseja remover o Cliente: @Model.Nome?</p>
+            </div>
+        </div>
+        <input type="hidden" name="cd_cliente" value="@Model.Id" />
+        <div class="row">
+            <div class="col-12">
+                <a role="button" class="btn btn-danger" asp-controller="Cliente" asp-action="Index">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -20,7 +20,6 @@ namespace ProgramaEstoque.Controllers
                 Quantidade = Convert.ToInt32(Request.Form["quantidade"])
             };
 
-            Console.WriteLine(produto);
 
             return View(produto);
         }
