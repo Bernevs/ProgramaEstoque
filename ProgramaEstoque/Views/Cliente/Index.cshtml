@@ -1,0 +1,27 @@
+﻿@model List<ProgramaEstoque.Models.ClienteModel>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+
+<h1 class="display-4">Clientes</h1>
+    
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Valor para Pagar</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.Nome</td>
+                <td>R$@cliente.ValorTotal</td>
+            </tr>
+        }
+    </tbody>
+</table>

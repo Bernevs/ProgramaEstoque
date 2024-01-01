@@ -1,0 +1,50 @@
+﻿@model ProgramaEstoque.Models.ProdutoModel
+
+@{
+    ViewData["Title"] = "Editar Produto";
+}
+
+<div class="container text-center">
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome do Produto</th>
+                    <th>Quantidade do Produto</th>
+                    <th>Preço do Produto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Nome</td>
+                    <td>@Model.Quantidade Unidades</td>
+                    <td>R$@Model.Preco</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="row">
+        <div class="offset-3 col-6">
+            <form asp-controller="Produto" asp-action="ConfirmarAlterar">
+                <input type="hidden" name="cd_produto" value="@Model.Id" />
+
+                <label for="novo_nome">Novo nome do Produto</label><br />
+                <input type="text" class="form-control" name="novo_nome" id="novo_nome" value="@Model.Nome" autocomplete="off" />
+
+                <label for="novo_preco">Novo preço do Produto</label><br />
+                <input type="text" class="form-control" name="novo_preco" id="novo_preco" value="@Model.Preco" autocomplete="off" />
+
+                <label for="nova_quantidade">Nova quantidade do Produto</label><br />
+                <select class="form-select" name="nova_quantidade">
+                    @for(int i = 0; i <=99; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+                <br />
+                <button type="submit" class="btn btn-primary">Alterar Produto</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@model ProgramaEstoque.Models.ProdutoModel
+
+@{
+    ViewData["Title"] = "Alterar Produto";
+}
+
+<div class="container text-center">
+    <form asp-controller="Produto" asp-action="AlterarProduto">
+        <div class="row">
+            <p>Você deseja alterar o produto: @Model.Nome?</p>
+        </div>
+
+        <input type="hidden" name="cd_produto" value="@Model.Id" />
+        <input type="hidden" name="novo_nome" value="@Model.Nome" />
+        <input type="hidden" name="novo_preco" value="@Model.Preco" />
+        <input type="hidden" name="nova_quantidade" value="@Model.Quantidade" />
+
+        <div class="row">
+            <div class="col-12">
+                <a role="button" class="btn btn-danger" asp-controller="Produto" asp-action="Index">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </form>
+</div>

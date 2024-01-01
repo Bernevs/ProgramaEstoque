@@ -1,0 +1,25 @@
+﻿@model ProgramaEstoque.Models.ProdutoModel
+
+@{
+    ViewData["title"] = "Remover Produto";
+}
+
+<div class="container text-center">
+    <form asp-controller="Produto" asp-action="RemoverProduto">
+        <div class="row">
+            <div class="col-12">
+                <p>Você deseja remover o produto: @Model.Nome?</p>
+            </div>
+        </div>
+
+        <input type="hidden" name="cd_produto" value="@Model.Id" />
+
+        <div class="row">
+            <div class="col-12">
+                <a role="button" class="btn btn-primary" asp-controller="Produto" asp-action="Index">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Confirmar</button>
+            </div>
+        </div>
+
+    </form>
+</div>

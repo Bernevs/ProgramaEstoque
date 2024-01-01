@@ -1,0 +1,26 @@
+﻿@model ProgramaEstoque.Models.ProdutoModel
+
+@{
+    ViewData["Title"] = "Confirmar Cadastro";
+}
+
+<div class="container text-center">
+    <form asp-controller="Produto" asp-action="CadastrarProduto">
+        <div class="row">
+            <div class="col-12">
+                <p>Você deseja cadastrar o Produto: @Model.Nome</p>
+            </div>
+        </div>
+
+        <input type="hidden" name="nome" value="@Model.Nome" />
+        <input type="hidden" name="preco" value="@Model.Preco" />
+        <input type="hidden" name="quantidade" value="@Model.Quantidade" />
+
+        <div class="row">
+            <div class="col-12">
+                <a role="button" class="btn btn-danger" asp-controller="Produto" asp-action="Index">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </form>
+</div>
