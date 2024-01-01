@@ -42,23 +42,68 @@
                 <tbody>
                     @foreach (var produto in Model)
                     {
-                        <tr>
-                            <td>@produto.Nome</td>
-                            <td>@produto.Quantidade Unidades</td>
-                            <td>R$@produto.Preco</td>
-                            <td>
-                                <div role="group" class="btn-group">
-                                    <form asp-controller="Produto" asp-action="EditarProduto">
-                                        <input type="hidden" name="cd_produto" value="@produto.Id" />
-                                        <button type="submit" class="btn btn-secondary">Editar</button>
-                                    </form>
-                                    <form asp-controller="Produto" asp-action="ConfirmarRemover">
-                                        <input type="hidden" name="cd_produto" value="@produto.Id" />
-                                        <button type="submit" class="btn btn-danger">Remover</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                        if (produto.Quantidade > 0)
+                        {
+                            <tr>
+                                <td>@produto.Nome</td>
+                                <td>@produto.Quantidade Unidades</td>
+                                <td>R$@produto.Preco</td>
+                                <td>
+                                    <div role="group" class="btn-group">
+                                        <form asp-controller="Produto" asp-action="EditarProduto">
+                                            <input type="hidden" name="cd_produto" value="@produto.Id" />
+                                            <button type="submit" class="btn btn-secondary">Editar</button>
+                                        </form>
+                                        <form asp-controller="Produto" asp-action="ConfirmarRemover">
+                                            <input type="hidden" name="cd_produto" value="@produto.Id" />
+                                            <button type="submit" class="btn btn-danger">Remover</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-danger">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var produto in Model)
+                    {
+                        if (produto.Quantidade == 0)
+                        {
+                            <tr>
+                                <td>@produto.Nome</td>
+                                <td>@produto.Quantidade Unidades</td>
+                                <td>R$@produto.Preco</td>
+                                <td>
+                                    <div role="group" class="btn-group">
+                                        <form asp-controller="Produto" asp-action="EditarProduto">
+                                            <input type="hidden" name="cd_produto" value="@produto.Id" />
+                                            <button type="submit" class="btn btn-secondary">Editar</button>
+                                        </form>
+                                        <form asp-controller="Produto" asp-action="ConfirmarRemover">
+                                            <input type="hidden" name="cd_produto" value="@produto.Id" />
+                                            <button type="submit" class="btn btn-danger">Remover</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

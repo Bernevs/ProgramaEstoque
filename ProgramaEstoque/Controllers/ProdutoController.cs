@@ -8,7 +8,7 @@ namespace ProgramaEstoque.Controllers
     {
         public IActionResult Index()
         {
-            return View(DatabaseManager.GetProdutos());
+            return View(DatabaseProduto.GetProdutos());
         }
 
         public IActionResult ConfirmarCadastro()
@@ -31,7 +31,7 @@ namespace ProgramaEstoque.Controllers
             double preco = Convert.ToDouble(Request.Form["preco"]);
             int quantidade = Convert.ToInt32(Request.Form["quantidade"]);
 
-            DatabaseManager.AddProduto(nome, preco, quantidade);
+            DatabaseProduto.AddProduto(nome, preco, quantidade);
 
             return RedirectToAction("Index");
         }
@@ -39,14 +39,14 @@ namespace ProgramaEstoque.Controllers
         public IActionResult EditarProduto()
         {
             int cd_produto = Convert.ToInt32(Request.Form["cd_produto"]);
-            return View(DatabaseManager.GetProdutoUnico(cd_produto));
+            return View(DatabaseProduto.GetProdutoUnico(cd_produto));
         }
 
         public IActionResult ConfirmarAlterar()
         {
             int cd_produto = Convert.ToInt32(Request.Form["cd_produto"]);
             // Supondo que você tenha uma lógica para obter o produto pelo ID do banco de dados
-            ProdutoModel produtoExistente = DatabaseManager.GetProdutoUnico(cd_produto);
+            ProdutoModel produtoExistente = DatabaseProduto.GetProdutoUnico(cd_produto);
 
             // Atualiza as propriedades do produto com os novos valores do formulário
             produtoExistente.Nome = Convert.ToString(Request.Form["novo_nome"]);
@@ -65,7 +65,7 @@ namespace ProgramaEstoque.Controllers
             double novo_preco = Convert.ToDouble(Request.Form["novo_preco"]);
             int nova_quantidade = Convert.ToInt32(Request.Form["nova_quantidade"]);
 
-            DatabaseManager.AlterarProduto(cd_produto, novo_nome, novo_preco, nova_quantidade);
+            DatabaseProduto.AlterarProduto(cd_produto, novo_nome, novo_preco, nova_quantidade);
 
             return RedirectToAction("Index");
         }
@@ -73,13 +73,13 @@ namespace ProgramaEstoque.Controllers
         public IActionResult confirmarRemover()
         {
             int cd_produto = Convert.ToInt32(Request.Form["cd_produto"]);
-            return View(DatabaseManager.GetProdutoUnico(cd_produto));
+            return View(DatabaseProduto.GetProdutoUnico(cd_produto));
         }
 
         public IActionResult RemoverProduto()
         {
             int cd_produto = Convert.ToInt32(Request.Form["cd_produto"]);
-            DatabaseManager.RemoverProduto(cd_produto);
+            DatabaseProduto.RemoverProduto(cd_produto);
             return RedirectToAction("Index");
         }
     }
