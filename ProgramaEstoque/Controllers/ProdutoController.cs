@@ -38,7 +38,8 @@ namespace ProgramaEstoque.Controllers
         public IActionResult EditarProduto()
         {
             int cd_produto = Convert.ToInt32(Request.Form["cd_produto"]);
-            return View(DatabaseProduto.GetProdutoUnico(cd_produto));
+            ProdutoModel produto = DatabaseProduto.GetProdutoUnico(cd_produto);
+            return View(produto);
         }
 
         public IActionResult ConfirmarAlterar()

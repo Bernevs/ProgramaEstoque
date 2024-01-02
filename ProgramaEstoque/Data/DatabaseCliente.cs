@@ -11,7 +11,7 @@ namespace ProgramaEstoque.Data
             List<ClienteModel> clientes = new List<ClienteModel>();
 
             using (var conn = GetConnection())
-            using (var cmd = new SQLiteCommand("SELECT cd_cliente, nome, round(valor_total, 2), valor_pago FROM cliente ORDER BY nome", conn))
+            using (var cmd = new SQLiteCommand("SELECT cd_cliente, nome, round(valor_total, 2) FROM cliente ORDER BY nome", conn))
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
@@ -20,8 +20,7 @@ namespace ProgramaEstoque.Data
                     {
                         Id = reader.GetInt32(0),
                         Nome = reader.GetString(1),
-                        ValorTotal = reader.GetDouble(2),
-                        ValorPago = reader.GetDouble(3)
+                        ValorTotal = reader.GetDouble(2)
                     };
 
                     clientes.Add(cliente);
@@ -36,7 +35,7 @@ namespace ProgramaEstoque.Data
             ClienteModel cliente = null;
 
             using(var conn = GetConnection())
-            using (var cmd = new SQLiteCommand($"SELECT cd_cliente, nome, round(valor_total, 2), valor_pago FROM cliente WHERE cd_cliente = {cd_cliente}", conn))
+            using (var cmd = new SQLiteCommand($"SELECT cd_cliente, nome, round(valor_total, 2) FROM cliente WHERE cd_cliente = {cd_cliente}", conn))
             using (var reader = cmd.ExecuteReader())
             {
                 if (reader.Read())
@@ -45,8 +44,7 @@ namespace ProgramaEstoque.Data
                     {
                         Id = reader.GetInt32(0),
                         Nome = reader.GetString(1),
-                        ValorTotal = reader.GetDouble(2),
-                        ValorPago = reader.GetDouble(3)
+                        ValorTotal = reader.GetDouble(2)
                     };
                 }
                 CloseConnection();
@@ -60,7 +58,7 @@ namespace ProgramaEstoque.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText =
-                    "INSERT INTO cliente (nome, valor_total, valor_pago) VALUES (@nome, 0, 0)";
+                    "INSERT INTO cliente (nome, valor_total) VALUES (@nome, 0, 0)";
 
                 cmd.Parameters.AddWithValue("@nome", nome);
 

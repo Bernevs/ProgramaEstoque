@@ -11,13 +11,26 @@ namespace ProgramaEstoque.Controllers
             return View(DatabaseCliente.GetClientes());
         }
 
+        public IActionResult MostrarCliente()
+        {
+            int cd_cliente = Convert.ToInt32(Request.Form["cd_cliente"]);
+            ClienteModel cliente = DatabaseCliente.GetClienteUnico(cd_cliente);
+            List<PedidoModel> pedidos = DatabasePedido.GetPedidos(cd_cliente);
+
+            ClientePedidoModel clientePedido = new ClientePedidoModel
+            {
+                Cliente = cliente,
+                Pedidos = pedidos
+            };
+            return View(clientePedido);
+        }
+
         public IActionResult ConfirmarCadastro()
         {
             ClienteModel cliente = new ClienteModel
             {
                 Nome = Convert.ToString(Request.Form["nome"]),
                 ValorTotal = 0,
-                ValorPago = 0
             };
 
             return View(cliente);
