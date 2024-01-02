@@ -105,7 +105,24 @@ namespace ProgramaEstoque.Data
             }
         }
 
-        public static void RemoverCliente(int cd_cliente)
+        public static void AlterarCliente(int cdCliente, string nome, double valorTotal)
+        {
+            using (var conn = GetConnection())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText =
+                    "UPDATE cliente SET nome = @nome, valor_total = @valor_total WHERE cd_cliente = @cd_cliente;";
+
+                cmd.Parameters.AddWithValue("@cd_cliente", cdCliente);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                cmd.Parameters.AddWithValue("@valor_total", valorTotal);
+                cmd.ExecuteNonQuery();
+
+                CloseConnection();
+            }
+        }
+
+        public static void RemoverCliente(int cdCliente)
         {
             using(var conn = GetConnection())
             using (var cmd = conn.CreateCommand())
@@ -113,7 +130,7 @@ namespace ProgramaEstoque.Data
                 cmd.CommandText =
                     "DELETE FROM cliente WHERE cd_cliente = @cd_cliente";
 
-                cmd.Parameters.AddWithValue("@cd_cliente", cd_cliente);
+                cmd.Parameters.AddWithValue("@cd_cliente", cdCliente);
                 cmd.ExecuteNonQuery();
                 CloseConnection();
             }

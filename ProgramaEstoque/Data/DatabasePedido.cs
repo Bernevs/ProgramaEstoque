@@ -90,13 +90,13 @@ namespace ProgramaEstoque.Data
             return pedido;
         }
 
-        public static void RemoverPedido(int cd_pedido)
+        public static void RemoverPedido(int cd_pedido, int cd_cliente)
         {
             using (var conn = GetConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText =
-                    "DELETE FROM pedido WHERE cd_pedido = @cd_pedido";
+                    $"DELETE FROM pedido_cliente_{cd_cliente} WHERE cd_pedido = @cd_pedido";
 
                 cmd.Parameters.AddWithValue("@cd_pedido", cd_pedido);
                 cmd.ExecuteNonQuery();

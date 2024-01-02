@@ -14,13 +14,15 @@
         <div class="col-6">
             <form asp-controller="Pedido" asp-action="Index">
                 <input type="hidden" name="cd_cliente" value="@Model.IdCliente" />
+
                 <button type="submit" class="btn btn-danger">Cancelar</button>
             </form>
         </div>
         <div class="col-6">
-            <form>
+            <form asp-controller="Pedido" asp-action="RemoverPedido">
                 <input type="hidden" name="cd_pedido" value="@Model.Id" />
                 <input type="hidden" name="cd_cliente" value="@Model.IdCliente" />
+
                 <button type="submit" class="btn btn-primary">Confirmar</button>
             </form>
         </div>
