@@ -36,7 +36,7 @@
                         <td>R$@cliente.ValorTotal</td>
                         <td>
                             <div role="group" class="btn-group">
-                                <form asp-controller="Cliente" asp-action="MostrarCliente">
+                                <form asp-controller="Pedido" asp-action="Index">
                                     <input type="hidden" name="cd_cliente" value="@cliente.Id" />
                                     <button type="submit" class="btn btn-secondary">Mostrar</button>
                                 </form>

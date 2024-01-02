@@ -107,21 +107,26 @@ namespace ProgramaEstoque.Data
             ProdutoModel produto = null; // Inicialize como null para o caso de nenhum resultado ser encontrado
 
             using (var conn = GetConnection())
-            using (var cmd = new SQLiteCommand($"SELECT cd_produto, nome, round(preco, 2), quantidade FROM produto WHERE cd_produto = {cd_produto}", conn))
-            using (var reader = cmd.ExecuteReader())
             {
-                if (reader.Read()) // Verifique se há pelo menos uma linha antes de acessar os dados
+                using (var cmd = new SQLiteCommand($"SELECT cd_produto, nome, round(preco, 2), quantidade FROM produto WHERE cd_produto = @cd_produto", conn))
                 {
-                    produto = new ProdutoModel
+                    cmd.Parameters.AddWithValue("@cd_produto", cd_produto);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        Id = reader.GetInt32(0),
-                        Nome = reader.GetString(1),
-                        Preco = reader.GetDouble(2),
-                        Quantidade = reader.GetInt32(3)
-                    };
-                }
+                        if (reader.Read()) // Verifique se há pelo menos uma linha antes de acessar os dados
+                        {
+                            produto = new ProdutoModel
+                            {
+                                Id = reader.GetInt32(0),
+                                Nome = reader.GetString(1),
+                                Preco = reader.GetDouble(2),
+                                Quantidade = reader.GetInt32(3)
+                            };
+                        }
 
-                CloseConnection();
+                        CloseConnection();
+                    }
+                }
             }
 
             return produto;

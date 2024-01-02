@@ -1,7 +1,7 @@
 ﻿@model ProgramaEstoque.Models.ClientePedidoModel
 
 @{
-    ViewData["Title"] = "Cliente";
+    ViewData["Title"] = Model.Cliente.Nome;
 }
 
 
@@ -35,8 +35,9 @@
                             <td>@pedido.ValorProdutoTotal</td>
                             <td>
                                 <div role="group" class="btn-group">
-                                    <form asp-controller="Cliente" asp-action="RemoverPedido">
+                                    <form asp-controller="Pedido" asp-action="ConfirmarRemover">
                                         <input type="hidden" name="cd_pedido" value="@pedido.Id" />
+                                        <input type="hidden" name="cd_cliente" value="@Model.Cliente.Id" />
                                         <button type="submit" class="btn btn-danger">Remover</button>
                                     </form>
                                 </div>
@@ -45,6 +46,20 @@
                     }
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <form asp-controller="Cliente" asp-action="PagamentosRealizados">
+                <input type="hidden" name="cd_cliente" value="@Model.Cliente.Id" />
+                <button type="submit" class="btn btn-primary">Pagamentos Realizados</button>
+            </form>
+        </div>
+        <div class="col-6">
+            <form asp-controller="Cliente" asp-action="RealizarPagamento">
+                <input type="hidden" name="cd_cliente" value="@Model.Cliente.Id" />
+                <button type="submit" class="btn btn-primary">Realizar Pagamento</button>
+            </form>
         </div>
     </div>
 </div>

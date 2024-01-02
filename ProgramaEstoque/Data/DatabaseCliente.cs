@@ -35,22 +35,59 @@ namespace ProgramaEstoque.Data
             ClienteModel cliente = null;
 
             using(var conn = GetConnection())
-            using (var cmd = new SQLiteCommand($"SELECT cd_cliente, nome, round(valor_total, 2) FROM cliente WHERE cd_cliente = {cd_cliente}", conn))
-            using (var reader = cmd.ExecuteReader())
             {
-                if (reader.Read())
+                using (var cmd = new SQLiteCommand($"SELECT cd_cliente, nome, round(valor_total, 2) FROM cliente WHERE cd_cliente = @cd_cliente", conn))
                 {
-                    cliente = new ClienteModel
+                    cmd.Parameters.AddWithValue("@cd_cliente", cd_cliente);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        Id = reader.GetInt32(0),
-                        Nome = reader.GetString(1),
-                        ValorTotal = reader.GetDouble(2)
-                    };
+                        if (reader.Read())
+                        {
+                            cliente = new ClienteModel
+                            {
+                                Id = reader.GetInt32(0),
+                                Nome = reader.GetString(1),
+                                ValorTotal = reader.GetDouble(2)
+                            };
+                        }
+                        CloseConnection();
+                    }
                 }
-                CloseConnection();
             }
             return cliente;
         }
+
+        public static ClienteModel GetClienteUnicoNome(string nome)
+        {
+            ClienteModel cliente = null;
+
+            using (var conn = GetConnection())
+            {
+                using (var cmd = new SQLiteCommand("SELECT cd_cliente, nome, round(valor_total, 2) FROM cliente WHERE nome = @Nome", conn))
+                {
+                    cmd.Parameters.AddWithValue("@Nome", nome);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            cliente = new ClienteModel
+                            {
+                                Id = reader.GetInt32(0),
+                                Nome = reader.GetString(1),
+                                ValorTotal = reader.GetDouble(2)
+                            };
+                        }
+                    }
+                }
+
+                CloseConnection();
+            }
+
+            return cliente;
+        }
+
 
         public static void AddCliente(string nome)
         {
@@ -58,7 +95,7 @@ namespace ProgramaEstoque.Data
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText =
-                    "INSERT INTO cliente (nome, valor_total) VALUES (@nome, 0, 0)";
+                    "INSERT INTO cliente (nome, valor_total) VALUES (@nome, 0)";
 
                 cmd.Parameters.AddWithValue("@nome", nome);
 
