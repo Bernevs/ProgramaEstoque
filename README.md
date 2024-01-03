@@ -40,12 +40,9 @@ Permite desfazer uma venda, restaurando o estoque e removendo registros associad
 ### Deletar Pagamento:
 Possibilita desfazer um registro de pagamento, revertendo as informações associadas.
 
-## Controle de Acesso e Segurança
-### Autenticação:
-Apenas o usuário tem acesso ao sistema, garantindo a segurança das informações.
-
 ### Registro de Atividades:
 Mantém um histórico detalhado das atividades realizadas no sistema para fins de auditoria.
+Usa o SQLite como banco de dados
 
 ## Interface Gráfica
 HTML/CSS:
