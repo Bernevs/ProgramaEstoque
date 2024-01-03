@@ -56,8 +56,8 @@
             </form>
         </div>
         <div class="col-6">
-            <form asp-controller="Cliente" asp-action="RealizarPagamento">
-                <input type="hidden" name="cd_cliente" value="@Model.Cliente.Id" />
+            <form asp-controller="Pagamento" asp-action="Pagamento">
+                <input type="hidden" name="id_cliente" value="@Model.Cliente.Id" />
                 <button type="submit" class="btn btn-primary">Realizar Pagamento</button>
             </form>
         </div>

@@ -90,6 +90,29 @@ namespace ProgramaEstoque.Data
             return pedido;
         }
 
+        public static void AdicionarPedido(int idCliente, int idProduto, string nomeProduto, int quantidade, double valorProduto, double valorProdutoTotal)
+        {
+            using ( var conn = GetConnection())
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText =
+                        $"INSERT INTO pedido_cliente_{idCliente} (cd_cliente, cd_produto, nome_produto, quantidade, valor, valor_total_produto)" +
+                        $"VALUES (@cd_cliente, @cd_produto, @nome_produto, @quantidade, @valor, @valor_total_produto);";
+
+                    cmd.Parameters.AddWithValue("@cd_cliente", idCliente);
+                    cmd.Parameters.AddWithValue("@cd_produto", idProduto);
+                    cmd.Parameters.AddWithValue("@nome_produto", nomeProduto);
+                    cmd.Parameters.AddWithValue("@quantidade", quantidade);
+                    cmd.Parameters.AddWithValue("@valor", valorProduto);
+                    cmd.Parameters.AddWithValue("@valor_total_produto", valorProdutoTotal);
+
+                    cmd.ExecuteNonQuery();
+                    CloseConnection();
+                }
+            }
+        }
+
         public static void RemoverPedido(int cd_pedido, int cd_cliente)
         {
             using (var conn = GetConnection())

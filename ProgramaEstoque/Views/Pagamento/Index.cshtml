@@ -23,6 +23,8 @@
                             <td>R$@pagamento.ValorPago</td>
                             <td>
                                 <form asp-controller="Pagamento" asp-action="ConfirmarRemover">
+                                    <input type="hidden" name="id_cliente" value="@pagamento.IdCliente" />
+                                    <input type="hidden" name="id_pagamento" value="@pagamento.Id" />
 
                                     <button type="submit" class="btn btn-danger" >Remover</button>
                                 </form>

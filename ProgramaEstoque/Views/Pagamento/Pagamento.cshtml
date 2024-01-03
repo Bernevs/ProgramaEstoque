@@ -1,0 +1,27 @@
+﻿@model ProgramaEstoque.Models.ClienteModel
+
+@{
+    ViewData["Title"] = "Realizar Pagamento";
+}
+
+<div class="container text-center">
+    <form asp-controller="Pagamento" asp-action="RealizarPagamento">
+        <div class="row">
+            <label>Valor Atual</label><br />
+            <input class="form-control" type="text" name="valor_total" value="@Model.ValorTotal" readonly />
+        </div>
+        <div class="row">
+            <label>Informe o valor</label><br />
+            <input class="form-control" type="text" name="valor_pago" autocomplete="off" required />
+        </div>
+        <div class="row">
+            <label>Data do Pagamento</label><br />
+            <input class="form-control" type="date" name="data" autocomplete="off" required />
+        </div>
+        <br />
+        <div class="row">
+            <input type="hidden" name="id_cliente" value="@Model.Id" />
+            <button type="submit" class="btn btn-primary">Realizar Pagamento</button>
+        </div>
+    </form>
+</div>

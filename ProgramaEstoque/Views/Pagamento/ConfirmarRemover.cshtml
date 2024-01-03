@@ -1,0 +1,29 @@
+﻿@model ProgramaEstoque.Models.PagamentoModel
+
+@{
+    ViewData["Title"] = "Remover Pagamento";
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-12">
+            <p>Você deseja remover o Pagamento de valor: R$@Model.ValorPago?</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <form asp-controller="Pagamento" asp-action="Index">
+                <input type="hidden" name="id_cliente" value="@Model.IdCliente" />
+                <button type="submit" class="btn btn-danger">Cancelar</button>
+            </form>
+        </div>
+        <div class="col-6">
+            <form form asp-controller="Pagamento" asp-action="RemoverPagamento">
+                <input type="hidden" name="id_cliente" value="@Model.IdCliente" />
+                <input type="hidden" name="id_pagamento" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,74 @@
-﻿@{
+﻿@model ProgramaEstoque.Models.VendaModel
+
+@{
     ViewData["Title"] = "Venda";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Página para realizar Venda</p>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Nome do Produto</td>
+                        <td>Quantidade</td>
+                        <td>Preço</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var produto in Model.Produtos)
+                    {
+                        @if (produto.Quantidade > 0)
+                        {
+                            <tr>
+                                <td>@produto.Nome</td>
+                                <td>@produto.Quantidade Unidades</td>
+                                <td>R$@produto.Preco</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div>
+        <form asp-controller="Venda" asp-action="RealizarVenda">
+            <div class="row">
+                <select class="form-select" name="id_cliente">
+                    @foreach (var cliente in Model.Cliente)
+                    {
+                        <option value="@cliente.Id">@cliente.Nome</option>
+                    }
+                </select>
+            </div>
+            <br />
+            <div class="row">
+                <select class="form-select" name="id_produto">
+                    @foreach (var produto in Model.Produtos)
+                    {
+                        @if (produto.Quantidade > 0)
+                        {
+                            <option value="@produto.Id">@produto.Nome</option>
+                        }
+                    }
+                </select>
+            </div>
+            <br />
+            <div class="row">
+                <select class="form-select" name="quantidade">
+                    @for (int i = 0; i <= 99; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+            <br />
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Realizar Venda</button>
+            </div>
+        </form>
+    </div>
 </div>
