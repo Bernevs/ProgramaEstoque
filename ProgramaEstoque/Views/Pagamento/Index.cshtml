@@ -1,0 +1,36 @@
+﻿@model List<ProgramaEstoque.Models.PagamentoModel>
+
+@{
+    ViewData["Title"] = "Pagamentos Realizados";
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Data do Pagamento</td>
+                        <td>Valor Pago</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pagamento in Model)
+                    {
+                        <tr>
+                            <td>@pagamento.Data</td>
+                            <td>R$@pagamento.ValorPago</td>
+                            <td>
+                                <form asp-controller="Pagamento" asp-action="ConfirmarRemover">
+
+                                    <button type="submit" class="btn btn-danger" >Remover</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

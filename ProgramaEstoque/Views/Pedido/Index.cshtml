@@ -50,8 +50,8 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <form asp-controller="Cliente" asp-action="PagamentosRealizados">
-                <input type="hidden" name="cd_cliente" value="@Model.Cliente.Id" />
+            <form asp-controller="Pagamento" asp-action="Index">
+                <input type="hidden" name="id_cliente" value="@Model.Cliente.Id" />
                 <button type="submit" class="btn btn-primary">Pagamentos Realizados</button>
             </form>
         </div>
