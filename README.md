@@ -1,6 +1,6 @@
 # Sistema de Gerenciamento de Vendas
 ## Descrição
-O Sistema de Gerenciamento de Vendas é uma aplicação desenvolvida em C# utilizando a arquitetura Model-View-Controller (MVC). Ele oferecendo funcionalidades para o gerenciamento eficiente de produtos, clientes, vendas e pagamentos.
+O Sistema de Gerenciamento de Vendas é uma aplicação desenvolvida em C# utilizando a arquitetura Model-View-Controller (MVC). Ele oferecendo funcionalidades para o gerenciamento de produtos, clientes, vendas e pagamentos.
 
 ## Funcionalidades
 ### Cadastrar Produto: 
